@@ -13,7 +13,7 @@ import {
 import { connect } from "react-redux";
 
 // Actions
-// import { login } from "./redux/actions";
+import { login } from "../redux/actions/auth";
 
 class LoginForm extends Component {
   state = {
@@ -25,8 +25,7 @@ class LoginForm extends Component {
   };
 
   handleSubmit = () => {
-    alert("Check my code the states are empty");
-  };
+    this.props.login(this.state)  };
 
   render() {
     const { username, password } = this.state;
@@ -36,18 +35,19 @@ class LoginForm extends Component {
         <Header />
         <Content>
           <Form>
-            <Item>
-              <Input name="username" value={username} placeholder="Username" />
+          <Item rounded>
+              <Input name="username" value={username} placeholder="Username" onChangeText={username=>this.handleChange({username})} />
             </Item>
-            <Item last>
+            <Item rounded last>
               <Input
                 value={password}
                 placeholder="Password"
                 secureTextEntry
                 name="password"
+                onChangeText={password=>this.handleChange({password})}
               />
             </Item>
-            <Button onPress={this.handleSubmit}>
+            <Button rounded info onPress={this.handleSubmit}>
               <Text>Login</Text>
             </Button>
           </Form>
@@ -56,4 +56,12 @@ class LoginForm extends Component {
     );
   }
 }
-export default LoginForm;
+const mapDispatchToProps = dispatch => {
+  return {
+    login: userData => dispatch(login(userData))
+  };
+};
+export default connect(
+  null,
+  mapDispatchToProps
+)(LoginForm);
