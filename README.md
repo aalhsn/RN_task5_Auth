@@ -243,3 +243,4 @@ export default connect(
 
 10. Show the action being dispatched in the dev tools.
 # RN_task5_Auth
+# RN_task5_Auth
